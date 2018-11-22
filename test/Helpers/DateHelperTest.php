@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AlexTartanTest\Helpers;
 
 use AlexTartan\Helpers\DateHelper;
+use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use PHPUnit\Framework\TestCase;
@@ -50,5 +51,14 @@ final class DateHelperTest extends TestCase
             ['2016-12-31 23:59:60', 'UTC', 1483228800],
             ['2016-02-29 12:59:00', 'UTC', 1456750740],
         ];
+    }
+
+    public function testToYmdHis()
+    {
+        $date = new DateTime('Nov 22nd 2018 12:34:56');
+        self::assertSame(
+            '2018-11-22 12:34:56',
+            DateHelper::toYmdHis($date)
+        );
     }
 }
