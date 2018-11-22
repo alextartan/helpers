@@ -1,0 +1,35 @@
+{
+  "name": "alextartan/helpers",
+  "description": "Collection of helper classes",
+  "type": "library",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "Alex Tartan",
+      "email": "alex.tartan@gmail.com"
+    }
+  ],
+  "bin": [
+    "bin/project_add_template"
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": "^7.0",
+    "ext-readline": "*",
+    "zendframework/zend-validator": "2.9.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5",
+    "roave/security-advisories": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "AlexTartan\\Helpers\\": "src/Helpers"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlexTartanTest\\Helpers\\": "test/Helpers"
+    }
+  }
+}

@@ -1,0 +1,158 @@
+#!/usr/bin/env php
+<?php
+
+use AlexTartan\Helpers\ConsoleHelper;
+
+if (version_compare('7.0.0', PHP_VERSION, '>')) {
+    fwrite(
+        STDERR,
+        sprintf(
+            'This version of alextartan/philipshue is supported on PHP 7.0 and greater.' . PHP_EOL .
+            'You are using PHP %s (%s).' . PHP_EOL,
+            PHP_VERSION,
+            PHP_BINARY
+        )
+    );
+
+    die(1);
+}
+
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
+}
+
+$autoloadLocations = [
+    __DIR__ . '/../../autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+    __DIR__ . '/vendor/autoload.php',
+];
+
+foreach ($autoloadLocations as $file) {
+    if (file_exists($file)) {
+        define('COMPOSER_AUTOLOAD', $file);
+
+        break;
+    }
+}
+
+if (!defined('COMPOSER_AUTOLOAD')) {
+    fwrite(
+        STDERR,
+        'You need to set up the project dependencies using Composer:' . PHP_EOL . PHP_EOL .
+        '    composer install' . PHP_EOL . PHP_EOL .
+        'You can learn all about Composer on https://getcomposer.org/.' . PHP_EOL
+    );
+
+    die(1);
+}
+
+/** @noinspection PhpIncludeInspection */
+require COMPOSER_AUTOLOAD;
+
+echo ''
+    . PHP_EOL . 'Options are:'
+    . PHP_EOL . '1: add readme'
+    . PHP_EOL . '2: add a bin script'
+    . PHP_EOL . '3: add coveralls'
+    . PHP_EOL . '4: add scrutinizer'
+    . PHP_EOL . '5: add travis'
+    . PHP_EOL . '6: add phpcs.xml and phpcs_ruleset.xml'
+    . PHP_EOL . '7: add phpunit.xml.dist'
+    . PHP_EOL . '8: add license'
+    . PHP_EOL . '9: add code of conduct'
+    . PHP_EOL . 'q: exit'
+    . PHP_EOL
+    . PHP_EOL;
+
+$sourcePath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+$targetPath = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+
+do {
+    $cmd = strtolower(trim(readline(PHP_EOL . '> Command: ')));
+    readline_add_history($cmd);
+    echo PHP_EOL;
+    switch ($cmd) {
+        case '1':
+            shell_exec("cp {$sourcePath}README.md $targetPath");
+            ConsoleHelper::echo(
+                'Added readme. Now put something in it',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '2':
+            shell_exec("cp {$sourcePath}php_bin_script $targetPath");
+            ConsoleHelper::echo(
+                'Added a php script. You should place this in a "bin/" directory',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '3':
+            shell_exec("cp {$sourcePath}.coveralls.yml $targetPath");
+            ConsoleHelper::echo(
+                PHP_EOL . 'Adding coveralls ymp. Now you need to add:'
+                . PHP_EOL
+                . PHP_EOL . '"upload-coverage": "vendor/bin/php-coveralls -v"'
+                . PHP_EOL
+                . PHP_EOL . 'to the "scripts" key in composer.json',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '4':
+            shell_exec("cp {$sourcePath}.scrutinizer.yml $targetPath");
+            break;
+
+        case '5':
+            shell_exec("cp {$sourcePath}.travis.yml $targetPath");
+            break;
+
+        case '6':
+            shell_exec("cp {$sourcePath}phpcs.xml $targetPath");
+            shell_exec("cp {$sourcePath}phpcs_ruleset.xml $targetPath");
+            ConsoleHelper::echo(
+                PHP_EOL . 'Adding code style xmls. Now you need to add:'
+                . PHP_EOL
+                . PHP_EOL . '"cs-check": "vendor/bin/phpcs",'
+                . PHP_EOL . '"cs-fix": "vendor/bin/phpcbf",'
+                . PHP_EOL
+                . PHP_EOL . 'to the "scripts" key in composer.json',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '7':
+            shell_exec("cp {$sourcePath}phpunit.xml.dist $targetPath");
+            ConsoleHelper::echo(
+                PHP_EOL . 'Adding code style xmls. Now you need to add:'
+                . PHP_EOL
+                . PHP_EOL . '"test": "vendor/bin/phpunit --colors=always",'
+                . PHP_EOL . '"test-coverage": "vendor/bin/phpunit --colors=always --coverage-clover clover.xml",'
+                . PHP_EOL
+                . PHP_EOL . 'to the "scripts" key in composer.json',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '8':
+            shell_exec("cp {$sourcePath}LICENSE $targetPath");
+            ConsoleHelper::echo(
+                'Adding license. Please update composer with "license": "Apache-2.0"',
+                ConsoleHelper::COLOR_WARNING
+            );
+            break;
+
+        case '9':
+            shell_exec("cp {$sourcePath}CONDUCT.MD $targetPath");
+            break;
+
+        case 'q':
+            exit(0);
+
+        default:
+            print PHP_EOL . 'Please select a valid option' . PHP_EOL;
+    }
+    echo PHP_EOL;
+    echo PHP_EOL;
+} while ($cmd !== 'q');
