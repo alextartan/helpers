@@ -9,7 +9,7 @@ use DateTimeZone;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \AlexTartanTest\Helpers\DateHelper
+ * @covers \AlexTartan\Helpers\DateHelper
  */
 final class DateHelperTest extends TestCase
 {
