@@ -16,7 +16,7 @@
   "require": {
     "php": "^7.0",
     "ext-readline": "*",
-    "zendframework/zend-validator": "2.9.*"
+    "zendframework/zend-validator": "2.10.*"
   },
   "require-dev": {
     "phpunit/phpunit": "^6.5.12",
