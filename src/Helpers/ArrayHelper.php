@@ -10,7 +10,7 @@ final class ArrayHelper
     /**
      * @throws InvalidArgumentException
      */
-    public static function indexObjectArrayByMethod(
+    public static function indexArrayOfObjectsByMethod(
         array $objects,
         string $methodName,
         bool $failOnDuplicates = true

@@ -90,6 +90,7 @@ do {
 
         case '3':
             shell_exec("cp {$sourcePath}.coveralls.yml $targetPath");
+            shell_exec('composer require-dev php-coveralls/php-coveralls');
             ConsoleHelper::echo(
                 PHP_EOL . 'Adding coveralls ymp. Now you need to add:'
                 . PHP_EOL
@@ -124,6 +125,7 @@ do {
 
         case '7':
             shell_exec("cp {$sourcePath}phpunit.xml.dist $targetPath");
+            shell_exec('composer require-dev php-coveralls/php-coveralls');
             ConsoleHelper::echo(
                 PHP_EOL . 'Adding code style xmls. Now you need to add:'
                 . PHP_EOL

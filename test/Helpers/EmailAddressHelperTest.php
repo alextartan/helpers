@@ -11,23 +11,16 @@ use PHPUnit\Framework\TestCase;
  */
 final class EmailAddressHelperTest extends TestCase
 {
-    public function testCanConstruct()
-    {
-        $helper = new EmailAddressHelper('valid@google.com');
-
-        self::assertInstanceOf(EmailAddressHelper::class, $helper);
-    }
-
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage The provided value is not a valid email address
      */
-    public function testFailWithExceptionOnInvalidEmailAddress()
+    public function testFailWithExceptionOnInvalidEmailAddress(): void
     {
         new EmailAddressHelper('google.com');
     }
 
-    public function testGetDomain()
+    public function testGetDomain(): void
     {
         $helper = new EmailAddressHelper('valid@google.com');
         self::assertEquals(
@@ -36,7 +29,7 @@ final class EmailAddressHelperTest extends TestCase
         );
     }
 
-    public function testGetUsername()
+    public function testGetUsername(): void
     {
         $helper = new EmailAddressHelper('valid@google.com');
         self::assertEquals(

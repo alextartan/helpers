@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class StringHelperTest extends TestCase
 {
-    public function testStripNonPrintableCharacters()
+    public function testStripNonPrintableCharacters(): void
     {
         $input          = "\e ABCDabcd_`~¶µÅÆÇÐØ÷";
         $expectedString = ' ABCDabcd_`~¶µÅÆÇÐØ÷';
@@ -19,7 +19,7 @@ final class StringHelperTest extends TestCase
         self::assertEquals($strippedString, $expectedString);
     }
 
-    public function testSortAlphabetically()
+    public function testSortAlphabetically(): void
     {
         self::assertEquals('acdg', StringHelper::sortAlphabetically('agdc'));
         self::assertEquals('1acg', StringHelper::sortAlphabetically('g1ac'));

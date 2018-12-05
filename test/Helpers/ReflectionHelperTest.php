@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class ReflectionHelperTest extends TestCase
 {
-    public function testCallPrivateMethod()
+    public function testCallPrivateMethod(): void
     {
         $x = new class()
         {
@@ -28,10 +28,11 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
-    public function testSetPrivatePropertyValue()
+    public function testSetPrivatePropertyValue(): void
     {
         $x = new class()
         {
+            /** @var int */
             private $privateProperty;
 
             public function getVal(): int
@@ -49,11 +50,13 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
-    public function testGetPrivatePropertyValue()
+    public function testGetPrivatePropertyValue(): void
     {
         $x = new class()
         {
-            private /** @noinspection PhpUnusedPrivateFieldInspection */ $privateProperty = 123;
+            /** @var int */
+            private /** @noinspection PhpUnusedPrivateFieldInspection */
+                $privateProperty = 123;
         };
 
         self::assertSame(

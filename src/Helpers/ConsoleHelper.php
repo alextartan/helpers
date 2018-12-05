@@ -8,6 +8,7 @@ final class ConsoleHelper
     const COLOR_WARNING = 'black + yellow_bg + underline + bold';
     const COLOR_ERROR   = 'white + red_bg + underline + bold';
 
+    /** @var int[] */
     private static $ansiCodes = [
         'off'        => 0,
         'bold'       => 1,
@@ -46,7 +47,7 @@ final class ConsoleHelper
         return $ansiStr;
     }
 
-    public static function echo(string $string, string $color)
+    public static function echo(string $string, string $color): void
     {
         echo self::setColor($string, $color);
     }

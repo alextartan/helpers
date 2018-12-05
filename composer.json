@@ -14,14 +14,17 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": "^7.0",
+    "php": "^7.2",
     "ext-readline": "*",
-    "zendframework/zend-validator": "2.10.*"
+    "zendframework/zend-validator": "^2.10"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.5.12",
+    "phpunit/phpunit": "^7.4",
     "zendframework/zend-coding-standard": "^1.0.0",
     "php-coveralls/php-coveralls": "^2.1.0",
+    "phpstan/phpstan": "0.10.*",
+    "phpstan/phpstan-strict-rules": "0.10.*",
+    "phpstan/phpstan-phpunit": "0.10",
     "roave/security-advisories": "dev-master"
   },
   "autoload": {
@@ -37,6 +40,7 @@
   "scripts": {
     "cs-check": "vendor/bin/phpcs",
     "cs-fix": "vendor/bin/phpcbf",
+    "phpstan": "vendor/bin/phpstan analyse",
     "test": "vendor/bin/phpunit --colors=always",
     "test-coverage": "vendor/bin/phpunit --colors=always --coverage-clover clover.xml",
     "upload-coverage": "vendor/bin/php-coveralls -v"

@@ -13,7 +13,7 @@ use stdClass;
  */
 final class ArrayHelperTest extends TestCase
 {
-    public function testIndexObjectArrayByMethod()
+    public function testIndexObjectArrayByMethod(): void
     {
         $a = $this->getTestObject('a');
         $b = $this->getTestObject('b');
@@ -23,11 +23,11 @@ final class ArrayHelperTest extends TestCase
 
         self::assertSame(
             ['a' => $a, 'b' => $b, 'c' => $c],
-            ArrayHelper::indexObjectArrayByMethod($array, 'getProp')
+            ArrayHelper::indexArrayOfObjectsByMethod($array, 'getProp')
         );
     }
 
-    public function testIndexObjectArrayByMethodFailsOnNonExistingMethod()
+    public function testIndexObjectArrayByMethodFailsOnNonExistingMethod(): void
     {
         $a = $this->getTestObject('a');
         $b = $this->getTestObject('b');
@@ -40,11 +40,11 @@ final class ArrayHelperTest extends TestCase
 
         self::assertSame(
             ['a' => $a, 'b' => $b, 'c' => $c],
-            ArrayHelper::indexObjectArrayByMethod($array, 'getPropASD')
+            ArrayHelper::indexArrayOfObjectsByMethod($array, 'getPropASD')
         );
     }
 
-    public function testIndexObjectArrayByMethodFailsOnNonStringOrIntKeys()
+    public function testIndexObjectArrayByMethodFailsOnNonStringOrIntKeys(): void
     {
         $a = $this->getTestObject(new stdClass());
         $b = $this->getTestObject('b');
@@ -57,11 +57,11 @@ final class ArrayHelperTest extends TestCase
 
         self::assertSame(
             ['1' => $a, 'b' => $b, 'c' => $c],
-            ArrayHelper::indexObjectArrayByMethod($array, 'getProp')
+            ArrayHelper::indexArrayOfObjectsByMethod($array, 'getProp')
         );
     }
 
-    public function testIndexObjectArrayByMethodFailsOnDuplicatesByDefault()
+    public function testIndexObjectArrayByMethodFailsOnDuplicatesByDefault(): void
     {
         $a = $this->getTestObject('a');
         $b = $this->getTestObject('a');
@@ -72,10 +72,10 @@ final class ArrayHelperTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Duplicate key found: a');
 
-        ArrayHelper::indexObjectArrayByMethod($array, 'getProp');
+        ArrayHelper::indexArrayOfObjectsByMethod($array, 'getProp');
     }
 
-    public function testIndexObjectArrayByMethodCanWorkWithDuplicates()
+    public function testIndexObjectArrayByMethodCanWorkWithDuplicates(): void
     {
         $a = $this->getTestObject('a');
         $b = $this->getTestObject('a');
@@ -85,11 +85,11 @@ final class ArrayHelperTest extends TestCase
 
         self::assertSame(
             ['a' => $b, 'b' => $c,],
-            ArrayHelper::indexObjectArrayByMethod($array, 'getProp', false)
+            ArrayHelper::indexArrayOfObjectsByMethod($array, 'getProp', false)
         );
     }
 
-    public function testIndexArrayOfArraysByKey()
+    public function testIndexArrayOfArraysByKey(): void
     {
         $array = [
             ['test' => 14],
@@ -107,7 +107,7 @@ final class ArrayHelperTest extends TestCase
         );
     }
 
-    public function testIndexArrayOfArraysByKeyFailsOnNoKey()
+    public function testIndexArrayOfArraysByKeyFailsOnNoKey(): void
     {
         $array = [
             ['test' => 14],
@@ -121,7 +121,7 @@ final class ArrayHelperTest extends TestCase
         ArrayHelper::indexArrayOfArraysByKey($array, 'test');
     }
 
-    public function testIndexArrayOfArraysByKeyFailsOnNonStringOrIntKeys()
+    public function testIndexArrayOfArraysByKeyFailsOnNonStringOrIntKeys(): void
     {
         $array = [
             ['test' => 14],
@@ -135,7 +135,7 @@ final class ArrayHelperTest extends TestCase
         ArrayHelper::indexArrayOfArraysByKey($array, 'test');
     }
 
-    public function testIndexArrayOfArraysByKeyFailsOnDuplicatesByDefault()
+    public function testIndexArrayOfArraysByKeyFailsOnDuplicatesByDefault(): void
     {
         $array = [
             ['test' => 14],
@@ -149,7 +149,7 @@ final class ArrayHelperTest extends TestCase
         ArrayHelper::indexArrayOfArraysByKey($array, 'test');
     }
 
-    public function testIndexArrayOfArraysByKeyCanWorkWithDuplicates()
+    public function testIndexArrayOfArraysByKeyCanWorkWithDuplicates(): void
     {
         $array = [
             ['test' => 14],
@@ -169,7 +169,7 @@ final class ArrayHelperTest extends TestCase
         );
     }
 
-    private function getTestObject($param)
+    private function getTestObject($param): object
     {
         return new class($param)
         {

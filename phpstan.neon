@@ -1,0 +1,19 @@
+includes:
+	- vendor/phpstan/phpstan-phpunit/extension.neon
+	- vendor/phpstan/phpstan-phpunit/rules.neon
+	- vendor/phpstan/phpstan-strict-rules/rules.neon
+parameters:
+	level: 7
+	paths:
+		- src
+		- test
+	ignoreErrors:
+	    # ignoring ArrayHelperTest errors
+	    - '#Property class@anonymous/test/Helpers/ArrayHelperTest.php:174::\$prop has no typehint specified.#'
+	    - '#Method AlexTartanTest\\Helpers\\ArrayHelperTest::getTestObject\(\) has parameter \$param with no typehint specified\.#'
+	    - '#Method class@anonymous/test/Helpers/ArrayHelperTest\.php:174::__construct\(\) has parameter \$prop with no typehint specified\.#'
+	    - '#Method class@anonymous/test/Helpers/ArrayHelperTest\.php:174::getProp\(\) has no return typehint specified\.#'
+	    # ignoring ReflectionHelper errors
+	    - '#Method AlexTartan\\Helpers\\ReflectionHelper::setPrivatePropertyValue\(\) has parameter \$value with no typehint specified\.#'
+	    - '#Method AlexTartan\\Helpers\\ReflectionHelper::getPrivatePropertyValue\(\) has no return typehint specified\.#'
+	    - '#Method AlexTartan\\Helpers\\ReflectionHelper::callPrivateMethod\(\) has no return typehint specified\.#'

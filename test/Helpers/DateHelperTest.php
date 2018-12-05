@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 final class DateHelperTest extends TestCase
 {
-    public function testGetDateTimeFromDateTimeImmutable()
+    public function testGetDateTimeFromDateTimeImmutable(): void
     {
         $dti = new DateTimeImmutable();
         $dt  = DateHelper::getDateTimeFromDateTimeImmutable($dti);
@@ -32,7 +32,7 @@ final class DateHelperTest extends TestCase
         string $date,
         string $timezone,
         int $timestamp
-    ) {
+    ): void {
         $dti = new DateTimeImmutable($date, new DateTimeZone($timezone));
         $dt  = DateHelper::getDateTimeFromDateTimeImmutable($dti);
 
@@ -53,7 +53,7 @@ final class DateHelperTest extends TestCase
         ];
     }
 
-    public function testToYmdHis()
+    public function testToYmdHis(): void
     {
         $date = new DateTime('Nov 22nd 2018 12:34:56');
         self::assertSame(

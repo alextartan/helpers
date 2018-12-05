@@ -19,6 +19,6 @@ final class DateHelper
 
     public static function toYmdHis(DateTimeInterface $dateTime = null): string
     {
-        return $dateTime ? $dateTime->format('Y-m-d H:i:s') : '';
+        return $dateTime !== null ? $dateTime->format('Y-m-d H:i:s') : '';
     }
 }
