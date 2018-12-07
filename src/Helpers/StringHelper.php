@@ -59,10 +59,10 @@ final class StringHelper
                 $str .= $keyspace[random_int(0, $max)];
             }
             $allDictionariesUsed =
-                ($useLower ? preg_match('/[a-z]/', $str) : true) &&
-                ($useUpper ? preg_match('/[A-Z]/', $str) : true) &&
-                ($useDigits ? preg_match('/[\d]/', $str) : true) &&
-                ($useSpecials ? preg_match('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $str) : true);
+                ($useLower ? (bool)preg_match('/[a-z]/', $str) : true) &&
+                ($useUpper ? (bool)preg_match('/[A-Z]/', $str) : true) &&
+                ($useDigits ? (bool)preg_match('/[\d]/', $str) : true) &&
+                ($useSpecials ? (bool)preg_match('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $str) : true);
         } while (!$allDictionariesUsed);
 
         return $str;

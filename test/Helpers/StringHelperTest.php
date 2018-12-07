@@ -36,7 +36,7 @@ final class StringHelperTest extends TestCase
     }
 
     /** @dataProvider lenTooShortDataProvider */
-    public function testRandomStringGeneratorThrowsExceptionOnLengthTooSmall($len): void
+    public function testRandomStringGeneratorThrowsExceptionOnLengthTooSmall(int $len): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Length cannot accommodate your requirements. Please increase accordingly.');
