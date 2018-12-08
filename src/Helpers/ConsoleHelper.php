@@ -38,7 +38,8 @@ final class ConsoleHelper
 
     public static function setColor(string $string, string $color): string
     {
-        return array_reduce(
+        return
+            array_reduce(
                 explode('+', $color),
                 function (string $carry, string $item) {
                     return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
