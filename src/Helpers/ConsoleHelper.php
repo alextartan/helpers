@@ -5,8 +5,9 @@ namespace AlexTartan\Helpers;
 
 final class ConsoleHelper
 {
-    const COLOR_WARNING = 'black + yellow_bg + underline + bold';
-    const COLOR_ERROR   = 'white + red_bg + underline + bold';
+    public const COLOR_SUCCESS = 'green + black_bg + underline + bold';
+    public const COLOR_WARNING = 'black + yellow_bg + underline + bold';
+    public const COLOR_ERROR   = 'white + red_bg + underline + bold';
 
     /** @var int[] */
     private static $ansiCodes = [
@@ -37,14 +38,15 @@ final class ConsoleHelper
 
     public static function setColor(string $string, string $color): string
     {
-        $colorAttrs = explode('+', $color);
-        $ansiStr    = '';
-        foreach ($colorAttrs as $attr) {
-            $ansiStr .= "\033[" . self::$ansiCodes[trim($attr)] . 'm';
-        }
-        $ansiStr .= $string . "\033[" . self::$ansiCodes['off'] . 'm';
-
-        return $ansiStr;
+        return array_reduce(
+                explode('+', $color),
+                function (string $carry, string $item) {
+                    return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
+                },
+                ''
+            )
+            . $string
+            . "\033[" . self::$ansiCodes['off'] . 'm'; // "\e[" + CODE + "m"
     }
 
     public static function echo(string $string, string $color): void
