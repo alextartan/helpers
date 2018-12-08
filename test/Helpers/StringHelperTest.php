@@ -12,12 +12,21 @@ use PHPUnit\Framework\TestCase;
  */
 final class StringHelperTest extends TestCase
 {
-    public function testStripNonPrintableCharacters(): void
+
+    /** @dataProvider stripDataProvider */
+    public function testStripNonPrintableCharactersReturnsPrintable(string $in, string $out): void
     {
-        $input          = "\e ABCDabcd_`~¶µÅÆÇÐØ÷";
-        $expectedString = ' ABCDabcd_`~¶µÅÆÇÐØ÷';
-        $strippedString = StringHelper::stripNonPrintableCharacters($input);
-        self::assertEquals($strippedString, $expectedString);
+        $strippedString = StringHelper::stripNonPrintableCharacters($in);
+        self::assertEquals($out, $strippedString);
+    }
+
+    /** @var string[][] */
+    public function stripDataProvider(): array
+    {
+        return [
+            ["\e ABCDabcd_`~¶µÅÆÇÐØ÷", ' ABCDabcd_`~¶µÅÆÇÐØ÷'],
+            ["\e", ''],
+        ];
     }
 
     public function testSortAlphabetically(): void
