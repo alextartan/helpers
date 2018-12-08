@@ -9,12 +9,7 @@ final class StringHelper
 {
     public static function stripNonPrintableCharacters(string $value): string
     {
-        $result = preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
-        if ($result === null) {
-            return '';
-        }
-
-        return $result;
+        return preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
     }
 
     public static function sortAlphabetically(string $string): string
