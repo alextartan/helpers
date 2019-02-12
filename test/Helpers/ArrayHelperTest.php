@@ -15,9 +15,9 @@ final class ArrayHelperTest extends TestCase
 {
     public function testIndexObjectArrayByMethod(): void
     {
-        $a = $this->getTestObject('a');
-        $b = $this->getTestObject('b');
-        $c = $this->getTestObject('c');
+        $a = $this->getTestObjectFromString('a');
+        $b = $this->getTestObjectFromString('b');
+        $c = $this->getTestObjectFromString('c');
 
         $array = [$a, $b, $c];
 
@@ -29,9 +29,9 @@ final class ArrayHelperTest extends TestCase
 
     public function testIndexObjectArrayByMethodFailsOnNonExistingMethod(): void
     {
-        $a = $this->getTestObject('a');
-        $b = $this->getTestObject('b');
-        $c = $this->getTestObject('c');
+        $a = $this->getTestObjectFromString('a');
+        $b = $this->getTestObjectFromString('b');
+        $c = $this->getTestObjectFromString('c');
 
         $array = [$a, $b, $c];
 
@@ -46,9 +46,9 @@ final class ArrayHelperTest extends TestCase
 
     public function testIndexObjectArrayByMethodFailsOnNonStringOrIntKeys(): void
     {
-        $a = $this->getTestObject(new stdClass());
-        $b = $this->getTestObject('b');
-        $c = $this->getTestObject('c');
+        $a = $this->getTestObjectFromObject(new stdClass());
+        $b = $this->getTestObjectFromString('b');
+        $c = $this->getTestObjectFromString('c');
 
         $array = [$a, $b, $c];
 
@@ -63,9 +63,9 @@ final class ArrayHelperTest extends TestCase
 
     public function testIndexObjectArrayByMethodFailsOnDuplicatesByDefault(): void
     {
-        $a = $this->getTestObject('a');
-        $b = $this->getTestObject('a');
-        $c = $this->getTestObject('b');
+        $a = $this->getTestObjectFromString('a');
+        $b = $this->getTestObjectFromString('a');
+        $c = $this->getTestObjectFromString('b');
 
         $array = [$a, $b, $c];
 
@@ -77,9 +77,9 @@ final class ArrayHelperTest extends TestCase
 
     public function testIndexObjectArrayByMethodCanWorkWithDuplicates(): void
     {
-        $a = $this->getTestObject('a');
-        $b = $this->getTestObject('a');
-        $c = $this->getTestObject('b');
+        $a = $this->getTestObjectFromString('a');
+        $b = $this->getTestObjectFromString('a');
+        $c = $this->getTestObjectFromString('b');
 
         $array = [$a, $b, $c];
 
@@ -169,18 +169,38 @@ final class ArrayHelperTest extends TestCase
         );
     }
 
-    private function getTestObject($param): object
+    private function getTestObjectFromObject(object $param): object
     {
         return new class($param)
         {
+            /** @var object */
             private $prop;
 
-            public function __construct($prop)
+            public function __construct(object $prop)
             {
                 $this->prop = $prop;
             }
 
-            public function getProp()
+            public function getProp(): object
+            {
+                return $this->prop;
+            }
+        };
+    }
+
+    private function getTestObjectFromString(string $param): object
+    {
+        return new class($param)
+        {
+            /** @var string */
+            private $prop;
+
+            public function __construct(string $prop)
+            {
+                $this->prop = $prop;
+            }
+
+            public function getProp(): string
             {
                 return $this->prop;
             }

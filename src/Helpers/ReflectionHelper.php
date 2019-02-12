@@ -5,6 +5,9 @@ namespace AlexTartan\Helpers;
 
 final class ReflectionHelper
 {
+    /**
+     * @param mixed $value
+     */
     public static function setPrivatePropertyValue(object $object, string $property, $value): void
     {
         $reflection = new \ReflectionProperty(get_class($object), $property);
@@ -12,6 +15,9 @@ final class ReflectionHelper
         $reflection->setValue($object, $value);
     }
 
+    /**
+     * @return mixed
+     */
     public static function getPrivatePropertyValue(object $object, string $propertyName)
     {
         $reflection = new \ReflectionClass(get_class($object));
@@ -22,6 +28,9 @@ final class ReflectionHelper
         return $property->getValue($object);
     }
 
+    /**
+     * @return mixed
+     */
     public static function callPrivateMethod(object $object, string $methodName, array $methodArgs)
     {
         $reflection = new \ReflectionClass(get_class($object));

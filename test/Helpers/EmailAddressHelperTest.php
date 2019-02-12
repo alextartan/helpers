@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace AlexTartanTest\Helpers;
 
 use AlexTartan\Helpers\EmailAddressHelper;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -11,12 +12,11 @@ use PHPUnit\Framework\TestCase;
  */
 final class EmailAddressHelperTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage The provided value is not a valid email address
-     */
     public function testFailWithExceptionOnInvalidEmailAddress(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The provided value is not a valid email address');
+
         new EmailAddressHelper('google.com');
     }
 

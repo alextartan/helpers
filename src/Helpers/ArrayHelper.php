@@ -17,6 +17,10 @@ final class ArrayHelper
     ): array {
         $outputArray = [];
         foreach ($objects as $inputObject) {
+            if (!is_object($inputObject)){
+                throw new InvalidArgumentException('Parameter is not an object');
+            }
+
             if (!method_exists($inputObject, $methodName)) {
                 throw new InvalidArgumentException("Object does not implement '$methodName' method");
             }
