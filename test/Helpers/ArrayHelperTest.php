@@ -44,6 +44,23 @@ final class ArrayHelperTest extends TestCase
         );
     }
 
+    public function testIndexObjectArrayByMethodFailsOnNonObject(): void
+    {
+        $a = 1;
+        $b = $this->getTestObjectFromString('b');
+        $c = $this->getTestObjectFromString('c');
+
+        $array = [$a, $b, $c];
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Parameter is not an object');
+
+        self::assertSame(
+            ['a' => $a, 'b' => $b, 'c' => $c],
+            ArrayHelper::indexArrayOfObjectsByMethod($array, 'getPropASD')
+        );
+    }
+
     public function testIndexObjectArrayByMethodFailsOnNonStringOrIntKeys(): void
     {
         $a = $this->getTestObjectFromObject(new stdClass());
