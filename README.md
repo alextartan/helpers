@@ -1,5 +1,3 @@
-# Helper classes
-
 Current build status
 ===
 
@@ -20,7 +18,7 @@ Not a lot of magic involved, but these have saved me hours of work
 * `indexArrayOfArraysByKey`
 
 ##### Reflection
-* `ReflectionHelper`
+* `setPrivatePropertyValue`
 * `getPrivatePropertyValue`
 * `callPrivateMethod`
 
