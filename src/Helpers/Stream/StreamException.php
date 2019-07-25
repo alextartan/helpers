@@ -5,7 +5,6 @@ namespace AlexTartan\Helpers\Stream;
 
 use Exception;
 
-class
-StreamException extends Exception
+class StreamException extends Exception
 {
 }
