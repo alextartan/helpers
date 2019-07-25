@@ -6,4 +6,9 @@
     <!-- Paths to check -->
     <file>src</file>
     <file>test</file>
+
+    <!-- exclude these files because they implement internal snake_case methods-->
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-pattern>src/Helpers/Stream/</exclude-pattern>
+    </rule>
 </ruleset>
