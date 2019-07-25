@@ -11,8 +11,6 @@ use function stream_context_get_default;
 use function stream_context_get_options;
 use function stream_context_set_default;
 use function strlen;
-use function trigger_error;
-use const E_USER_ERROR;
 
 class GeneratorReadStream implements Stream
 {
@@ -54,7 +52,7 @@ class GeneratorReadStream implements Stream
     public function stream_open(string $path, string $mode, int $options = STREAM_REPORT_ERRORS, string &$opened_path = null): bool
     {
         if (!in_array($mode, ['r', 'rb'], true)) {
-            return $this->triggerError('This stream is readonly');
+            throw new StreamException('This stream is readonly');
         }
 
         $this->initProtocol($path);
@@ -120,12 +118,5 @@ class GeneratorReadStream implements Stream
     private function getOptions(): array
     {
         return stream_context_get_options(stream_context_get_default());
-    }
-
-    private function triggerError(string $error): bool
-    {
-        trigger_error($error, E_USER_ERROR);
-
-        return false;
     }
 }

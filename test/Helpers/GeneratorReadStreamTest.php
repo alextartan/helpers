@@ -4,9 +4,13 @@ declare(strict_types=1);
 namespace AlexTartanTest\Helpers;
 
 use AlexTartan\Helpers\Stream\GeneratorReadStream;
+use AlexTartan\Helpers\Stream\StreamException;
 use Generator;
 use PHPUnit\Framework\TestCase;
 use function fclose;
+use function feof;
+use function fopen;
+use function fread;
 use function random_bytes;
 use function strlen;
 
@@ -78,5 +82,32 @@ final class GeneratorReadStreamTest extends TestCase
         fclose($fp);
 
         self::assertSame(strlen($s), $numberOfIterations * $chunkSize);
+    }
+
+    /** @dataProvider invalidOpenModes */
+    public function testCannotOpenInWriteMode(string $mode): void
+    {
+        $this->expectException(StreamException::class);
+        $this->expectExceptionMessage('This stream is readonly');
+
+        $id = GeneratorReadStream::createResourceUrl(
+            $this->getGenerator(1, 2)
+        );
+        fopen('generator://' . $id, $mode);
+    }
+
+    public function invalidOpenModes(): array
+    {
+        $modes        = ['r+', 'w', 'w+', 'a', 'a+', 'x', 'x+', 'c', 'c+', 'e'];
+        $specialFlags = ['b', 't'];
+
+        $return = [];
+        foreach ($modes as $mode) {
+            foreach ($specialFlags as $flag) {
+                $return[] = [$mode . $flag];
+            }
+        }
+
+        return $return;
     }
 }
