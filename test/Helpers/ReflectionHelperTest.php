@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace AlexTartanTest\Helpers;
 
 use AlexTartan\Helpers\ReflectionHelper;
+use AlexTartanTest\Helpers\TestAssets\TestPrivateChild;
+use AlexTartanTest\Helpers\TestAssets\TestPrivateParent;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -47,6 +49,30 @@ final class ReflectionHelperTest extends TestCase
         self::assertSame(
             $value,
             $x->getVal()
+        );
+    }
+
+    public function testGetPrivatePropertyValueFromParentClass(): void
+    {
+        $x = new TestPrivateChild();
+
+        $value = ReflectionHelper::getPrivatePropertyValue($x, 'prop', TestPrivateParent::class);
+
+        self::assertSame(
+            $value,
+            155
+        );
+    }
+
+    public function testSetPrivatePropertyValueFromParentClass(): void
+    {
+        $x = new TestPrivateChild();
+
+        ReflectionHelper::setPrivatePropertyValue($x, 'prop', 255, TestPrivateParent::class);
+
+        self::assertSame(
+            ReflectionHelper::getPrivatePropertyValue($x, 'prop', TestPrivateParent::class),
+            255
         );
     }
 

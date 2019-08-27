@@ -3,14 +3,20 @@ declare(strict_types=1);
 
 namespace AlexTartan\Helpers;
 
+use function get_class;
+
 final class ReflectionHelper
 {
     /**
      * @param mixed $value
      */
-    public static function setPrivatePropertyValue(object $object, string $property, $value): void
+    public static function setPrivatePropertyValue(object $object, string $property, $value, string $className = null): void
     {
-        $reflection = new \ReflectionProperty(get_class($object), $property);
+        if ($className === null) {
+            $className = get_class($object);
+        }
+
+        $reflection = new \ReflectionProperty($className, $property);
         $reflection->setAccessible(true);
         $reflection->setValue($object, $value);
     }
@@ -18,9 +24,12 @@ final class ReflectionHelper
     /**
      * @return mixed
      */
-    public static function getPrivatePropertyValue(object $object, string $propertyName)
+    public static function getPrivatePropertyValue(object $object, string $propertyName, string $className = null)
     {
-        $reflection = new \ReflectionClass(get_class($object));
+        if ($className === null) {
+            $className = get_class($object);
+        }
+        $reflection = new \ReflectionClass($className);
 
         $property = $reflection->getProperty($propertyName);
         $property->setAccessible(true);
