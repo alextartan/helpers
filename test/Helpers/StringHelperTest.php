@@ -78,34 +78,34 @@ final class StringHelperTest extends TestCase
         self::assertRegExp('/[a-z]/', $pass);
         self::assertNotRegExp('/[A-Z]/', $pass);
         self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $pass);
+        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY uppercase
         $pass = StringHelper::generateRandomString(16, false, true, false, false);
         self::assertNotRegExp('/[a-z]/', $pass);
         self::assertRegExp('/[A-Z]/', $pass);
         self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $pass);
+        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY numbers
         $pass = StringHelper::generateRandomString(16, false, false, true, false);
         self::assertNotRegExp('/[a-z]/', $pass);
         self::assertNotRegExp('/[A-Z]/', $pass);
         self::assertRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $pass);
+        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY specials
         $pass = StringHelper::generateRandomString(16, false, false, false, true);
         self::assertNotRegExp('/[a-z]/', $pass);
         self::assertNotRegExp('/[A-Z]/', $pass);
         self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertRegExp('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $pass);
+        self::assertRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ALL spaces (by default
         $pass = StringHelper::generateRandomString(16);
         self::assertRegExp('/[a-z]/', $pass);
         self::assertRegExp('/[A-Z]/', $pass);
         self::assertRegExp('/[0-9]/', $pass);
-        self::assertRegExp('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $pass);
+        self::assertRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
     }
 }
