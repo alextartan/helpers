@@ -1,19 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartan\Helpers;
 
 use InvalidArgumentException;
 
-final class StringHelper
-{
-    public static function stripNonPrintableCharacters(string $value): string
-    {
+use function random_int;
+
+final class StringHelper {
+
+    public static function stripNonPrintableCharacters(string $value): string {
         return (string)preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
     }
 
-    public static function sortAlphabetically(string $string): string
-    {
+    public static function sortAlphabetically(string $string): string {
         $arr = str_split($string, 1);
         sort($arr);
 
@@ -29,37 +30,35 @@ final class StringHelper
     ): string {
         $alphaLower = 'abcdefghijklmnopqrstuvwxyz';
         $alphaUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $digits     = '1234567890';
-        $special    = '!@#$%^&*()_+-=[]{}<>';
+        $digits = '1234567890';
+        $special = ',.?!@#$%^&*()_+-=[]{}<>';
 
-        $keyspace = str_shuffle(
-            ''
-            . ($useLower ? $alphaLower : '')
-            . ($useUpper ? $alphaUpper : '')
-            . ($useDigits ? $digits : '')
-            . ($useSpecials ? $special : '')
-        );
+        $keyspace = ''
+                    . ($useLower ? $alphaLower : '')
+                    . ($useUpper ? $alphaUpper : '')
+                    . ($useDigits ? $digits : '')
+                    . ($useSpecials ? $special : '');
 
         $max = mb_strlen($keyspace) - 1;
         if ($max < 1) {
             throw new InvalidArgumentException('keyspace must be at least two characters long');
         }
         if ($length < count(array_filter([$useLower, $useUpper, $useDigits, $useSpecials]))) {
-            throw new InvalidArgumentException('Length cannot accommodate your requirements. Please increase accordingly.');
+            throw new InvalidArgumentException(
+                'Length cannot accommodate your requirements. Please increase accordingly.'
+            );
         }
 
-        do {
-            $str = '';
-            for ($i = 0; $i < $length; $i++) {
-                $str .= $keyspace[random_int(0, $max)];
-            }
-            $allDictionariesUsed =
-                ($useLower ? (bool)preg_match('/[a-z]/', $str) : true) &&
-                ($useUpper ? (bool)preg_match('/[A-Z]/', $str) : true) &&
-                ($useDigits ? (bool)preg_match('/[\d]/', $str) : true) &&
-                ($useSpecials ? (bool)preg_match('/[[!@#\$%\^&*\(\)_+-=\[\]\{\}<>]]/', $str) : true);
-        } while (!$allDictionariesUsed);
+        $str = ''
+               . ($useLower ? $alphaLower[random_int(0, strlen($alphaLower) - 1)] : '')
+               . ($useUpper ? $alphaUpper[random_int(0, strlen($alphaUpper) - 1)] : '')
+               . ($useDigits ? $digits[random_int(0, strlen($digits) - 1)] : '')
+               . ($useSpecials ? $special[random_int(0, strlen($special) - 1)] : '');
 
-        return $str;
+        for ($i = strlen($str); $i < $length; $i++) {
+            $str .= $keyspace[random_int(0, $max)];
+        }
+
+        return str_shuffle($str);
     }
 }
