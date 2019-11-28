@@ -8,13 +8,16 @@ use InvalidArgumentException;
 
 use function random_int;
 
-final class StringHelper {
+final class StringHelper
+{
 
-    public static function stripNonPrintableCharacters(string $value): string {
+    public static function stripNonPrintableCharacters(string $value): string
+    {
         return (string)preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
     }
 
-    public static function sortAlphabetically(string $string): string {
+    public static function sortAlphabetically(string $string): string
+    {
         $arr = str_split($string, 1);
         sort($arr);
 
