@@ -41,7 +41,7 @@ final class ConsoleHelper
         return
             array_reduce(
                 explode('+', $color),
-                function (string $carry, string $item) {
+                static function (string $carry, string $item) {
                     return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
                 },
                 ''

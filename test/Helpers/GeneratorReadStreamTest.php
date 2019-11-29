@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartanTest\Helpers;
@@ -7,10 +8,12 @@ use AlexTartan\Helpers\Stream\GeneratorReadStream;
 use AlexTartan\Helpers\Stream\StreamException;
 use Generator;
 use PHPUnit\Framework\TestCase;
+
 use function fclose;
 use function feof;
 use function fopen;
 use function fread;
+use function fstat;
 use function random_bytes;
 use function strlen;
 
@@ -109,5 +112,48 @@ final class GeneratorReadStreamTest extends TestCase
         }
 
         return $return;
+    }
+
+    public function testStat(): void
+    {
+        $id = GeneratorReadStream::createResourceUrl(
+            $this->getGenerator(1, 2)
+        );
+        $fp = fopen('generator://' . $id, 'rb');
+        if ($fp === false) {
+            static::fail('cannot read stream');
+        }
+
+        self::assertSame(
+            [
+                0         => 0,
+                1         => 0,
+                2         => 33060, // rb
+                3         => 0,
+                4         => 0,
+                5         => 0,
+                6         => 0,
+                7         => 1,
+                8         => 0,
+                9         => 0,
+                10        => 0,
+                11        => 0,
+                12        => 0,
+                'dev'     => 0,
+                'ino'     => 0,
+                'mode'    => 33060, // rb
+                'nlink'   => 0,
+                'uid'     => 0,
+                'gid'     => 0,
+                'rdev'    => 0,
+                'size'    => 1,
+                'atime'   => 0,
+                'mtime'   => 0,
+                'ctime'   => 0,
+                'blksize' => 0,
+                'blocks'  => 0,
+            ],
+            fstat($fp)
+        );
     }
 }

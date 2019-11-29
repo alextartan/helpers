@@ -18,7 +18,7 @@ final class StringHelper
 
     public static function sortAlphabetically(string $string): string
     {
-        $arr = str_split($string, 1);
+        $arr = str_split($string);
         sort($arr);
 
         return implode('', $arr);

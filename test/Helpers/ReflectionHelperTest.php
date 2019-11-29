@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartanTest\Helpers;
@@ -15,8 +16,7 @@ final class ReflectionHelperTest extends TestCase
 {
     public function testCallPrivateMethod(): void
     {
-        $x = new class()
-        {
+        $x = new class() {
             /** @noinspection PhpUnusedPrivateMethodInspection */
             private function privateMethod(): int
             {
@@ -32,8 +32,7 @@ final class ReflectionHelperTest extends TestCase
 
     public function testSetPrivatePropertyValue(): void
     {
-        $x = new class()
-        {
+        $x = new class() {
             /** @var int */
             private $privateProperty;
 
@@ -78,16 +77,27 @@ final class ReflectionHelperTest extends TestCase
 
     public function testGetPrivatePropertyValue(): void
     {
-        $x = new class()
-        {
+        $x = new class() {
             /** @var int */
-            private /** @noinspection PhpUnusedPrivateFieldInspection */
-                $privateProperty = 123;
+            private /** @noinspection PhpUnusedPrivateFieldInspection */ $privateProperty = 123;
         };
 
         self::assertSame(
             123,
             ReflectionHelper::getPrivatePropertyValue($x, 'privateProperty')
+        );
+    }
+
+
+    public function testGetPrivateConstant(): void
+    {
+        $x = new class() {
+            private const /** @noinspection PhpUnusedPrivateFieldInspection */ TEST = 'testing';
+        };
+
+        self::assertSame(
+            'testing',
+            ReflectionHelper::getConstant($x, 'TEST')
         );
     }
 }
