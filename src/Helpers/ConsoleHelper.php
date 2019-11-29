@@ -1,7 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartan\Helpers;
+
+use function array_reduce;
+use function explode;
+use function trim;
 
 final class ConsoleHelper
 {
@@ -38,12 +43,14 @@ final class ConsoleHelper
 
     public static function setColor(string $string, string $color): string
     {
+        $callback = static function (string $carry, string $item) {
+            return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
+        };
+
         return
             array_reduce(
                 explode('+', $color),
-                static function (string $carry, string $item) {
-                    return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
-                },
+                $callback,
                 ''
             )
             . $string
