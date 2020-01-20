@@ -23,7 +23,11 @@ final class ReflectionHelper
         $reflection->setValue($object, $value);
     }
 
-    /** @return mixed */
+    /**
+     * @param class-string $className
+     *
+     * @return mixed
+     */
     public static function getPrivatePropertyValue(object $object, string $propertyName, string $className = null)
     {
         if ($className === null) {
@@ -47,12 +51,17 @@ final class ReflectionHelper
         return $method->invokeArgs($object, $methodArgs);
     }
 
-    /** @return int|string */
+    /**
+     * @param class-string $className
+     *
+     * @return int|string
+     */
     public static function getConstant(object $object, string $constantName, string $className = null)
     {
         if ($className === null) {
             $className = get_class($object);
         }
+
         $reflection = new ReflectionClass($className);
         $constants  = $reflection->getConstants();
 

@@ -10,7 +10,6 @@ use function random_int;
 
 final class StringHelper
 {
-
     public static function stripNonPrintableCharacters(string $value): string
     {
         return (string)preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
@@ -33,14 +32,14 @@ final class StringHelper
     ): string {
         $alphaLower = 'abcdefghijklmnopqrstuvwxyz';
         $alphaUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $digits = '1234567890';
-        $special = ',.?!@#$%^&*()_+-=[]{}<>';
+        $digits     = '1234567890';
+        $special    = ',.?!@#$%^&*()_+-=[]{}<>';
 
         $keyspace = ''
-                    . ($useLower ? $alphaLower : '')
-                    . ($useUpper ? $alphaUpper : '')
-                    . ($useDigits ? $digits : '')
-                    . ($useSpecials ? $special : '');
+            . ($useLower ? $alphaLower : '')
+            . ($useUpper ? $alphaUpper : '')
+            . ($useDigits ? $digits : '')
+            . ($useSpecials ? $special : '');
 
         $max = mb_strlen($keyspace) - 1;
         if ($max < 1) {
@@ -53,10 +52,10 @@ final class StringHelper
         }
 
         $str = ''
-               . ($useLower ? $alphaLower[random_int(0, strlen($alphaLower) - 1)] : '')
-               . ($useUpper ? $alphaUpper[random_int(0, strlen($alphaUpper) - 1)] : '')
-               . ($useDigits ? $digits[random_int(0, strlen($digits) - 1)] : '')
-               . ($useSpecials ? $special[random_int(0, strlen($special) - 1)] : '');
+            . ($useLower ? $alphaLower[random_int(0, strlen($alphaLower) - 1)] : '')
+            . ($useUpper ? $alphaUpper[random_int(0, strlen($alphaUpper) - 1)] : '')
+            . ($useDigits ? $digits[random_int(0, strlen($digits) - 1)] : '')
+            . ($useSpecials ? $special[random_int(0, strlen($special) - 1)] : '');
 
         for ($i = strlen($str); $i < $length; $i++) {
             $str .= $keyspace[random_int(0, $max)];

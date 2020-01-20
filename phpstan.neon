@@ -2,12 +2,18 @@ includes:
 	- vendor/phpstan/phpstan-phpunit/extension.neon
 	- vendor/phpstan/phpstan-phpunit/rules.neon
 	- vendor/phpstan/phpstan-strict-rules/rules.neon
+
 parameters:
-	level: 7
-	paths:
-		- src
-		- test
-	ignoreErrors:
-		-
-			message: '#Variable method call on object.#'
-			path: %currentWorkingDirectory%/src/Helpers/ArrayHelper.ph
+
+    level: max
+
+    checkMissingIterableValueType: false
+
+    paths:
+        - src
+        - test
+
+    ignoreErrors:
+        -
+            message: '#Variable method call on object.#'
+            path: %currentWorkingDirectory%/src/Helpers/ArrayHelper.ph

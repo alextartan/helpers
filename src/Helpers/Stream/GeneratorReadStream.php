@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartan\Helpers\Stream;
@@ -6,6 +7,7 @@ namespace AlexTartan\Helpers\Stream;
 use Generator;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+
 use function in_array;
 use function stream_context_get_default;
 use function stream_context_get_options;
@@ -16,17 +18,13 @@ class GeneratorReadStream implements Stream
 {
     public const PROTOCOL = 'generator';
 
-    /** @var string */
-    private $path;
+    private string $path;
 
-    /** @var string */
-    private $buffer;
+    private string $buffer;
 
-    /** @var Generator */
-    private $generator;
+    private Generator $generator;
 
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public static function createResourceUrl(
         Generator $generator,
@@ -121,9 +119,7 @@ class GeneratorReadStream implements Stream
         ];
     }
 
-    /**
-     * Parse the protocol out of the given path.
-     */
+    /** Parse the protocol out of the given path. */
     private function initProtocol(string $path): void
     {
         $parts           = explode('://', $path, 2);

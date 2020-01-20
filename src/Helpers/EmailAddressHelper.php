@@ -1,19 +1,17 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartan\Helpers;
 
 use InvalidArgumentException;
-use Zend\Validator\EmailAddress;
+use Laminas\Validator\EmailAddress;
 
 final class EmailAddressHelper
 {
-    /** @var string */
-    private $emailAddress;
+    private string $emailAddress;
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function __construct(string $emailAddress)
     {
         $validator = new EmailAddress();
