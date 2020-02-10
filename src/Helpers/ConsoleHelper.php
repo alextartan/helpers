@@ -15,7 +15,7 @@ final class ConsoleHelper
     public const COLOR_ERROR   = 'white + red_bg + underline + bold';
 
     /** @var int[] */
-    private static $ansiCodes = [
+    private static array $ansiCodes = [
         'off'        => 0,
         'bold'       => 1,
         'italic'     => 3,
@@ -43,7 +43,7 @@ final class ConsoleHelper
 
     public static function setColor(string $string, string $color): string
     {
-        $callback = static function (string $carry, string $item) {
+        $callback = static function (string $carry, string $item): string {
             return $carry . "\033[" . self::$ansiCodes[trim($item)] . 'm';
         };
 

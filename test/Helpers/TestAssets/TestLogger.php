@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartanTest\Helpers\TestAssets;
 
 use Psr\Log\AbstractLogger;
+
 use const PHP_EOL;
 
 class TestLogger extends AbstractLogger
