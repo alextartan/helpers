@@ -98,4 +98,58 @@ class CommandLineTest extends TestCase
             $commandLine->getFullCommand()
         );
     }
+
+    public function testAdvancedCommandWithWorkingDirAndStdErrAndStdOutAppendAndWrite(): void
+    {
+        $commandLine = (new CommandLine(
+            'ls',
+            '/opt',
+            CommandLine::STDERR_TO_STDOUT,
+            CommandLine::STDOUT_TO_DEV_NULL,
+            CommandLine::MODE_APPEND,
+            CommandLine::MODE_APPEND
+        ))
+            ->withArgument('-la')
+            ->withOption('--color', 'auto', '=');
+
+        self::assertSame(
+            "cd '/opt' && ls '-la' --color='auto' 2>&1 >> /dev/null",
+            $commandLine->getFullCommand()
+        );
+    }
+
+    public function testSimpleCommandWithWorkingDirAndStdErrAndStdOutNonDefaultAppendAndWrite(): void
+    {
+        $commandLine = new CommandLine(
+            'ls',
+            '/opt',
+            '/var/log/err',
+            '/var/log/out',
+            CommandLine::MODE_APPEND,
+            CommandLine::MODE_WRITE
+        );
+
+        self::assertSame(
+            "cd '/opt' && ls 2>> '/var/log/err' > '/var/log/out'",
+            $commandLine->getFullCommand()
+        );
+    }
+
+    public function testSimpleCommandWithWorkingDirAndStdErrAndStdOutNonDefaultAppendAndWriteBackgroundTask(): void
+    {
+        $commandLine = new CommandLine(
+            'ls',
+            '/opt',
+            '/var/log/err',
+            '/var/log/out',
+            CommandLine::MODE_APPEND,
+            CommandLine::MODE_WRITE,
+            true
+        );
+
+        self::assertSame(
+            "cd '/opt' && ls 2>> '/var/log/err' > '/var/log/out' &",
+            $commandLine->getFullCommand()
+        );
+    }
 }

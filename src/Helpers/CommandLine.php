@@ -2,6 +2,8 @@
 
 namespace AlexTartan\Helpers;
 
+use Webmozart\Assert\Assert;
+
 use function escapeshellarg;
 use function escapeshellcmd;
 
@@ -10,26 +12,41 @@ class CommandLine
     public const STDERR_TO_STDOUT   = ' 2>&1';
     public const STDOUT_TO_DEV_NULL = '/dev/null';
 
+    public const MODE_WRITE  = '>';
+    public const MODE_APPEND = '>>';
+
     private string $command;
     private ?string $workingDirectory;
     private ?string $stdOut = '';
     private ?string $stdErr = '';
+    private bool $background;
 
-    public function __construct(string $command, ?string $workingDirectory, ?string $stdErr, ?string $stdOut)
-    {
+    public function __construct(
+        string $command,
+        ?string $workingDirectory,
+        ?string $stdErr,
+        ?string $stdOut,
+        string $stdErrMode = self::MODE_WRITE,
+        string $stdOutMode = self::MODE_WRITE,
+        bool $background = false
+    ) {
         $this->command          = escapeshellcmd($command);
         $this->workingDirectory = $workingDirectory;
+        $this->background       = $background;
+
+        Assert::oneOf($stdErrMode, [self::MODE_WRITE, self::MODE_APPEND]);
+        Assert::oneOf($stdOutMode, [self::MODE_WRITE, self::MODE_APPEND]);
 
         if ($stdErr === self::STDERR_TO_STDOUT) {
             $this->stdErr = self::STDERR_TO_STDOUT;
         } elseif ($stdErr !== null) {
-            $this->stdErr = ' 2> ' . escapeshellarg($stdErr);
+            $this->stdErr = ' 2' . $stdErrMode . ' ' . escapeshellarg($stdErr);
         }
 
         if ($stdOut === self::STDOUT_TO_DEV_NULL) {
-            $this->stdOut = ' > ' . $stdOut;
+            $this->stdOut = ' ' . $stdOutMode . ' ' . $stdOut;
         } elseif ($stdOut !== null) {
-            $this->stdOut = ' > ' . escapeshellarg($stdOut);
+            $this->stdOut = ' ' . $stdOutMode . ' ' . escapeshellarg($stdOut);
         }
     }
 
@@ -64,6 +81,10 @@ class CommandLine
         }
         if ($this->stdOut !== null) {
             $fullCommand .= $this->stdOut;
+        }
+
+        if ($this->background) {
+            $fullCommand .= ' &';
         }
 
         return $fullCommand;
