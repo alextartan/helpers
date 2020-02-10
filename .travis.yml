@@ -8,16 +8,11 @@ cache:
 
 matrix:
   include:
-    - php: 7.2
+    - php: 7.4
       env:
         - CS_CHECK=true
         - TEST_COVERAGE=true
         - PHPSTAN=true
-    - php: 7.3
-      env:
-        - CS_CHECK=false
-        - TEST_COVERAGE=false
-        - PHPSTAN=false
     - php: nightly
       env:
         - CS_CHECK=false

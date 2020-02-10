@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartanTest\Helpers;
@@ -188,7 +189,7 @@ final class ArrayHelperTest extends TestCase
 
     private function getTestObjectFromObject(object $param): object
     {
-        return new class($param)
+        return new class ($param)
         {
             /** @var object */
             private $prop;
@@ -207,7 +208,7 @@ final class ArrayHelperTest extends TestCase
 
     private function getTestObjectFromString(string $param): object
     {
-        return new class($param)
+        return new class ($param)
         {
             /** @var string */
             private $prop;

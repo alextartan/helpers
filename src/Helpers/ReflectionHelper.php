@@ -5,13 +5,18 @@ declare(strict_types=1);
 namespace AlexTartan\Helpers;
 
 use ReflectionClass;
+use ReflectionException;
 use ReflectionProperty;
 
 use function get_class;
 
 final class ReflectionHelper
 {
-    /** @param mixed $value */
+    /**
+     * @param mixed $value
+     *
+     * @throws ReflectionException
+     */
     public static function setPrivatePropertyValue(object $object, string $property, $value, string $className = null): void
     {
         if ($className === null) {
@@ -23,7 +28,13 @@ final class ReflectionHelper
         $reflection->setValue($object, $value);
     }
 
-    /** @return mixed */
+    /**
+     * @param class-string $className
+     *
+     * @return mixed
+     *
+     * @throws ReflectionException
+     */
     public static function getPrivatePropertyValue(object $object, string $propertyName, string $className = null)
     {
         if ($className === null) {
@@ -37,7 +48,11 @@ final class ReflectionHelper
         return $property->getValue($object);
     }
 
-    /** @return mixed */
+    /**
+     * @return mixed
+     *
+     * @throws ReflectionException
+     */
     public static function callPrivateMethod(object $object, string $methodName, array $methodArgs)
     {
         $reflection = new ReflectionClass(get_class($object));
@@ -47,7 +62,13 @@ final class ReflectionHelper
         return $method->invokeArgs($object, $methodArgs);
     }
 
-    /** @return int|string */
+    /**
+     * @param class-string $className
+     *
+     * @return int|string
+     *
+     * @throws ReflectionException
+     */
     public static function getConstant(object $object, string $constantName, string $className = null)
     {
         if ($className === null) {

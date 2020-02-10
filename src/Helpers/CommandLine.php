@@ -33,7 +33,7 @@ class CommandLine
         }
     }
 
-    public function withOption($option, $value = null, $separator = ' '): self
+    public function withOption(string $option, string $value = null, string $separator = ' '): self
     {
         $command          = clone $this;
         $command->command .= ' ' . $option;
@@ -44,7 +44,7 @@ class CommandLine
         return $command;
     }
 
-    public function withArgument($argument): self
+    public function withArgument(string $argument): self
     {
         $command          = clone $this;
         $command->command .= ' ' . escapeshellarg($argument);
@@ -76,14 +76,15 @@ class CommandLine
     }
 
     /** @codeCoverageIgnore */
-    public function shell_exec(): ?string
+    public function shellExec(): ?string
     {
         return shell_exec($this->getFullCommand());
     }
 
     /** @codeCoverageIgnore */
-    public function system(&$returnVar = null): ?string
+    public function system(int &$returnVar = null): ?string
     {
+        /** @var string|false $result */
         $result = system($this->getFullCommand(), $returnVar);
 
         return $result === false

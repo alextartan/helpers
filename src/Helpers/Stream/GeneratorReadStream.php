@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace AlexTartan\Helpers\Stream;
@@ -6,6 +7,7 @@ namespace AlexTartan\Helpers\Stream;
 use Generator;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
+
 use function in_array;
 use function stream_context_get_default;
 use function stream_context_get_options;
