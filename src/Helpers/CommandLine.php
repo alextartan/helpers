@@ -29,7 +29,7 @@ class CommandLine
         if ($stdOut === self::STDOUT_TO_DEV_NULL) {
             $this->stdOut = ' > ' . $stdOut;
         } elseif ($stdOut !== null) {
-            $this->stdOut = ' 2> ' . ' > ' . escapeshellarg($stdOut);
+            $this->stdOut = ' > ' . escapeshellarg($stdOut);
         }
     }
 

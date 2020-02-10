@@ -67,6 +67,21 @@ class CommandLineTest extends TestCase
         );
     }
 
+    public function testSimpleCommandWithWorkingDirAndStdErrAndStdOutNonDefault(): void
+    {
+        $commandLine = new CommandLine(
+            'ls',
+            '/opt',
+            '/var/log/err',
+            '/var/log/out'
+        );
+
+        self::assertSame(
+            "cd '/opt' && ls 2> '/var/log/err' > '/var/log/out'",
+            $commandLine->getFullCommand()
+        );
+    }
+
     public function testAdvancedCommandWithWorkingDirAndStdErrAndStdOut(): void
     {
         $commandLine = (new CommandLine(
