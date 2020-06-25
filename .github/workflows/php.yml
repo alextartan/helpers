@@ -35,6 +35,16 @@ jobs:
     - name: Tests
       run: composer run-script test-coverage -- --coverage-clover=coverage.xml
       
+    - name: Tests - mutation
+      run: composer run-script test-infection
+      if: github.ref == 'refs/heads/master'
+      env:
+        TRAVIS: true
+        TRAVIS_PULL_REQUEST: false
+        TRAVIS_REPO_SLUG: alextartan/mezzio-symfony-console
+        TRAVIS_BRANCH: master
+        STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+      
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash)
 
