@@ -41,7 +41,7 @@ jobs:
       env:
         TRAVIS: true
         TRAVIS_PULL_REQUEST: false
-        TRAVIS_REPO_SLUG: alextartan/mezzio-symfony-console
+        TRAVIS_REPO_SLUG: alextartan/helpers
         TRAVIS_BRANCH: master
         STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
       
