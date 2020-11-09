@@ -1,3 +1,4 @@
+
 version: 2
 updates:
 - package-ecosystem: composer
@@ -6,3 +7,11 @@ updates:
     interval: daily
     time: "03:00"
   open-pull-requests-limit: 10
+  reviewers:
+  - alextartan
+  assignees:
+  - alextartan
+  versioning-strategy: increase
+  allow:
+  - dependency-type: direct
+  - dependency-type: indirect
