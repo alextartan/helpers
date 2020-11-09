@@ -2208,12 +2208,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6"
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e440567339d5fe93d9525e377c5e686b0b08bcca",
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca",
                 "shasum": ""
             },
             "conflict": {
@@ -2511,20 +2511,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-01T20:01:47+00:00"
+            "time": "2020-11-07T16:07:08+00:00"
         },
         {
             "name": "sanmai/pipeline",
-            "version": "v3.1.2",
+            "version": "v3.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sanmai/pipeline.git",
-                "reference": "12a7402b97d945587a6a8c291a0040369a83fcf6"
+                "reference": "07a532743086cc01af9313d28eedacbaf77ea70e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/12a7402b97d945587a6a8c291a0040369a83fcf6",
-                "reference": "12a7402b97d945587a6a8c291a0040369a83fcf6",
+                "url": "https://api.github.com/repos/sanmai/pipeline/zipball/07a532743086cc01af9313d28eedacbaf77ea70e",
+                "reference": "07a532743086cc01af9313d28eedacbaf77ea70e",
                 "shasum": ""
             },
             "require": {
@@ -2543,11 +2543,6 @@
                 "vimeo/psalm": "^2.0 || ^3.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Pipeline\\": "src/"
@@ -2567,7 +2562,13 @@
                 }
             ],
             "description": "General-purpose collections pipeline",
-            "time": "2020-01-26T21:22:49+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/sanmai",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-21T01:57:59+00:00"
         },
         {
             "name": "sebastian/code-unit",
