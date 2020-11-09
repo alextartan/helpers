@@ -21,7 +21,7 @@
   },
   "require-dev": {
     "infection/infection": "^0.15.1 || ^0.16.0",
-    "php-coveralls/php-coveralls": "~2.1",
+    "php-coveralls/php-coveralls": "~2.4",
     "phpstan/phpstan": "~0.12.9",
     "phpstan/phpstan-strict-rules": "~0.12.2",
     "phpstan/phpstan-phpunit": "~0.12.6",
