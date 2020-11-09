@@ -20,7 +20,7 @@
     "laminas/laminas-validator": "^2.10"
   },
   "require-dev": {
-    "infection/infection": "^0.16.0",
+    "infection/infection": "^0.20.1",
     "php-coveralls/php-coveralls": "~2.1",
     "phpstan/phpstan": "~0.12.9",
     "phpstan/phpstan-strict-rules": "~0.12.2",
