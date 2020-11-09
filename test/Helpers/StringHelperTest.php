@@ -72,41 +72,41 @@ final class StringHelperTest extends TestCase
         }
     }
 
-    public function testRandomStringGeneratorContainsCorrectKeyspaces(): void
+    public function testRandomStringGeneratorContainsCorrectKeySpaces(): void
     {
         // test contains ONLY lowercase
         $pass = StringHelper::generateRandomString(16, true, false, false, false);
-        self::assertRegExp('/[a-z]/', $pass);
-        self::assertNotRegExp('/[A-Z]/', $pass);
-        self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
+        self::assertMatchesRegularExpression('/[a-z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[A-Z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[0-9]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY uppercase
         $pass = StringHelper::generateRandomString(16, false, true, false, false);
-        self::assertNotRegExp('/[a-z]/', $pass);
-        self::assertRegExp('/[A-Z]/', $pass);
-        self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[a-z]/', $pass);
+        self::assertMatchesRegularExpression('/[A-Z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[0-9]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY numbers
         $pass = StringHelper::generateRandomString(16, false, false, true, false);
-        self::assertNotRegExp('/[a-z]/', $pass);
-        self::assertNotRegExp('/[A-Z]/', $pass);
-        self::assertRegExp('/[0-9]/', $pass);
-        self::assertNotRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[a-z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[A-Z]/', $pass);
+        self::assertMatchesRegularExpression('/[0-9]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ONLY specials
         $pass = StringHelper::generateRandomString(16, false, false, false, true);
-        self::assertNotRegExp('/[a-z]/', $pass);
-        self::assertNotRegExp('/[A-Z]/', $pass);
-        self::assertNotRegExp('/[0-9]/', $pass);
-        self::assertRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[a-z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[A-Z]/', $pass);
+        self::assertDoesNotMatchRegularExpression('/[0-9]/', $pass);
+        self::assertMatchesRegularExpression('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
 
         // test contains ALL spaces (by default
         $pass = StringHelper::generateRandomString(16);
-        self::assertRegExp('/[a-z]/', $pass);
-        self::assertRegExp('/[A-Z]/', $pass);
-        self::assertRegExp('/[0-9]/', $pass);
-        self::assertRegExp('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
+        self::assertMatchesRegularExpression('/[a-z]/', $pass);
+        self::assertMatchesRegularExpression('/[A-Z]/', $pass);
+        self::assertMatchesRegularExpression('/[0-9]/', $pass);
+        self::assertMatchesRegularExpression('/[\!\@\#\$\%\^\&\*\(\)\_\+\-\=\[\]\{\}\<\>\,\.\?]/', $pass);
     }
 }
