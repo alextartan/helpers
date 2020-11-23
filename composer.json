@@ -22,7 +22,7 @@
   "require-dev": {
     "infection/infection": "^0.20.1",
     "php-coveralls/php-coveralls": "~2.1",
-    "phpstan/phpstan": "~0.12.9",
+    "phpstan/phpstan": "~0.12.57",
     "phpstan/phpstan-strict-rules": "~0.12.2",
     "phpstan/phpstan-phpunit": "~0.12.6",
     "phpunit/phpunit": "^9.0",
