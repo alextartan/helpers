@@ -11,10 +11,14 @@ use function random_int;
 
 final class StringHelper
 {
+    private const KEYSPACE_ALPHA_LOWER = 'abcdefghijklmnopqrstuvwxyz';
+    private const KEYSPACE_ALPHA_UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    private const KEYSPACE_DIGITS      = '1234567890';
+    private const KEYSPACE_SPECIAL     = ',.?!@#$%^&*()_+-=[]{}<>';
 
     public static function stripNonPrintableCharacters(string $value): string
     {
-        return (string)preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
+        return (string) preg_replace('/[\x00-\x1F\x7F]/u', '', $value);
     }
 
     public static function sortAlphabetically(string $string): string
@@ -33,20 +37,12 @@ final class StringHelper
         bool $useDigits = true,
         bool $useSpecials = true
     ): string {
-        $alphaLower = 'abcdefghijklmnopqrstuvwxyz';
-        $alphaUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $digits = '1234567890';
-        $special = ',.?!@#$%^&*()_+-=[]{}<>';
-
-        $keyspace = ''
-                    . ($useLower ? $alphaLower : '')
-                    . ($useUpper ? $alphaUpper : '')
-                    . ($useDigits ? $digits : '')
-                    . ($useSpecials ? $special : '');
-
-        $max = mb_strlen($keyspace) - 1;
+        $keyspace = self::getKeyspace($useLower, $useUpper, $useDigits, $useSpecials);
+        $max      = mb_strlen($keyspace) - 1;
         if ($max < 1) {
-            throw new InvalidArgumentException('keyspace must be at least two characters long');
+            throw new InvalidArgumentException(
+                'keyspace must be at least two characters long'
+            );
         }
         if ($length < count(array_filter([$useLower, $useUpper, $useDigits, $useSpecials]))) {
             throw new InvalidArgumentException(
@@ -55,15 +51,44 @@ final class StringHelper
         }
 
         $str = ''
-               . ($useLower ? $alphaLower[random_int(0, strlen($alphaLower) - 1)] : '')
-               . ($useUpper ? $alphaUpper[random_int(0, strlen($alphaUpper) - 1)] : '')
-               . ($useDigits ? $digits[random_int(0, strlen($digits) - 1)] : '')
-               . ($useSpecials ? $special[random_int(0, strlen($special) - 1)] : '');
+            . ($useLower
+                ? self::KEYSPACE_ALPHA_LOWER[random_int(0, strlen(self::KEYSPACE_ALPHA_LOWER) - 1)]
+                : '')
+            . ($useUpper
+                ? self::KEYSPACE_ALPHA_UPPER[random_int(0, strlen(self::KEYSPACE_ALPHA_UPPER) - 1)]
+                : '')
+            . ($useDigits
+                ? self::KEYSPACE_DIGITS[random_int(0, strlen(self::KEYSPACE_DIGITS) - 1)]
+                : '')
+            . ($useSpecials
+                ? self::KEYSPACE_SPECIAL[random_int(0, strlen(self::KEYSPACE_SPECIAL) - 1)]
+                : '');
 
         for ($i = strlen($str); $i < $length; $i++) {
             $str .= $keyspace[random_int(0, $max)];
         }
 
         return str_shuffle($str);
+    }
+
+    private static function getKeyspace(
+        bool $useLower,
+        bool $useUpper,
+        bool $useDigits,
+        bool $useSpecials
+    ): string {
+        return ''
+            . ($useLower
+                ? self::KEYSPACE_ALPHA_LOWER
+                : '')
+            . ($useUpper
+                ? self::KEYSPACE_ALPHA_UPPER
+                : '')
+            . ($useDigits
+                ? self::KEYSPACE_DIGITS
+                : '')
+            . ($useSpecials
+                ? self::KEYSPACE_SPECIAL
+                : '');
     }
 }
