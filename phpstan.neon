@@ -1,14 +1,19 @@
 includes:
-	- vendor/phpstan/phpstan-phpunit/extension.neon
-	- vendor/phpstan/phpstan-phpunit/rules.neon
-	- vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
 parameters:
-	level: 7
-	checkMissingIterableValueType: false
-	paths:
-		- src
-		- test
-	ignoreErrors:
-		-
-			message: '#Variable method call on object.#'
-			path: %currentWorkingDirectory%/src/Helpers/ArrayHelper.ph
+    level: 7
+    checkMissingIterableValueType: false
+    paths:
+        - src
+        - test
+    excludePaths:
+        - test/Helpers/ReflectionHelperTest.php
+    ignoreErrors:
+        - '#expects int<0, max>, int given#'
+        - '#Property AlexTartan\\Helpers\\Stream\\GeneratorReadStream::\$path is never read, only written.#'
+        - '#Method AlexTartanTest\\Helpers\\TestAssets\\TestPrivateParent::method\(\) is unused.#'
+        -
+            message: '#Variable method call on object.#'
+            path: %currentWorkingDirectory%/src/Helpers/ArrayHelper.ph

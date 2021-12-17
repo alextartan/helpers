@@ -8,9 +8,7 @@ use InvalidArgumentException;
 
 final class ArrayHelper
 {
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public static function indexArrayOfObjectsByMethod(
         array $objects,
         string $methodName,
@@ -40,9 +38,7 @@ final class ArrayHelper
         return $outputArray;
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public static function indexArrayOfArraysByKey(
         array $arrayOfArrays,
         string $keyName,

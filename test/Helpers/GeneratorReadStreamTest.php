@@ -6,6 +6,7 @@ namespace AlexTartanTest\Helpers;
 
 use AlexTartan\Helpers\Stream\GeneratorReadStream;
 use AlexTartan\Helpers\Stream\StreamException;
+use Exception;
 use Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -59,6 +60,7 @@ final class GeneratorReadStreamTest extends TestCase
         return $return;
     }
 
+    /** @throws Exception */
     private function getGenerator(int $numberOfIterations, int $chunkSize): Generator
     {
         for ($i = 0; $i < $numberOfIterations; $i++) {
@@ -66,7 +68,10 @@ final class GeneratorReadStreamTest extends TestCase
         }
     }
 
-    /** @dataProvider getGeneratorParams */
+    /**
+     * @dataProvider getGeneratorParams
+     * @throws Exception
+     */
     public function testSomething(int $numberOfIterations, int $chunkSize, int $readLength): void
     {
         $id = GeneratorReadStream::createResourceUrl(
@@ -74,7 +79,7 @@ final class GeneratorReadStreamTest extends TestCase
         );
         $fp = fopen('generator://' . $id, 'rb');
         if ($fp === false) {
-            static::fail('cannot read stream');
+            self::fail('cannot read stream');
         }
 
         $s = '';
@@ -87,7 +92,11 @@ final class GeneratorReadStreamTest extends TestCase
         self::assertSame(strlen($s), $numberOfIterations * $chunkSize);
     }
 
-    /** @dataProvider invalidOpenModes */
+    /**
+     * @dataProvider invalidOpenModes
+     *
+     * @throws Exception
+     */
     public function testCannotOpenInWriteMode(string $mode): void
     {
         $this->expectException(StreamException::class);
@@ -114,6 +123,7 @@ final class GeneratorReadStreamTest extends TestCase
         return $return;
     }
 
+    /** @throws Exception */
     public function testStat(): void
     {
         $id = GeneratorReadStream::createResourceUrl(
@@ -121,7 +131,7 @@ final class GeneratorReadStreamTest extends TestCase
         );
         $fp = fopen('generator://' . $id, 'rb');
         if ($fp === false) {
-            static::fail('cannot read stream');
+            self::fail('cannot read stream');
         }
 
         self::assertSame(
