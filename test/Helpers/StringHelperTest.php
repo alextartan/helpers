@@ -13,7 +13,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class StringHelperTest extends TestCase
 {
-
     /** @dataProvider stripDataProvider */
     public function testStripNonPrintableCharactersReturnsPrintable(string $in, string $out): void
     {
