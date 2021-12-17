@@ -18,17 +18,13 @@ class GeneratorReadStream implements Stream
 {
     public const PROTOCOL = 'generator';
 
-    /** @var string */
-    private $path;
+    private string $path;
 
-    /** @var string */
-    private $buffer;
+    private string $buffer;
 
-    /** @var Generator */
-    private $generator;
+    private Generator $generator;
 
-    /** @var LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
     public static function createResourceUrl(
         Generator $generator,
@@ -51,6 +47,7 @@ class GeneratorReadStream implements Stream
         return self::PROTOCOL . '://' . $default[self::PROTOCOL]['id'];
     }
 
+    /** @throws StreamException */
     public function stream_open(string $path, string $mode, int $options = STREAM_REPORT_ERRORS, string &$opened_path = null): bool
     {
         if (!in_array($mode, ['r', 'rb'], true)) {

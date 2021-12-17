@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AlexTartan\Helpers;
 
+use Exception;
 use InvalidArgumentException;
 
 use function random_int;
@@ -24,6 +25,7 @@ final class StringHelper
         return implode('', $arr);
     }
 
+    /** @throws Exception */
     public static function generateRandomString(
         int $length,
         bool $useLower = true,

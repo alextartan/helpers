@@ -12,12 +12,8 @@ use function get_class;
 
 final class ReflectionHelper
 {
-    /**
-     * @param mixed $value
-     *
-     * @throws ReflectionException
-     */
-    public static function setPrivatePropertyValue(object $object, string $property, $value, string $className = null): void
+    /** @throws ReflectionException */
+    public static function setPrivatePropertyValue(object $object, string $property, mixed $value, string $className = null): void
     {
         if ($className === null) {
             $className = get_class($object);
@@ -31,11 +27,9 @@ final class ReflectionHelper
     /**
      * @param class-string $className
      *
-     * @return mixed
-     *
      * @throws ReflectionException
      */
-    public static function getPrivatePropertyValue(object $object, string $propertyName, string $className = null)
+    public static function getPrivatePropertyValue(object $object, string $propertyName, string $className = null): mixed
     {
         if ($className === null) {
             $className = get_class($object);
@@ -49,11 +43,9 @@ final class ReflectionHelper
     }
 
     /**
-     * @return mixed
-     *
      * @throws ReflectionException
      */
-    public static function callPrivateMethod(object $object, string $methodName, array $methodArgs)
+    public static function callPrivateMethod(object $object, string $methodName, array $methodArgs): mixed
     {
         $reflection = new ReflectionClass(get_class($object));
         $method     = $reflection->getMethod($methodName);
@@ -65,11 +57,9 @@ final class ReflectionHelper
     /**
      * @param class-string $className
      *
-     * @return int|string
-     *
      * @throws ReflectionException
      */
-    public static function getConstant(object $object, string $constantName, string $className = null)
+    public static function getConstant(object $object, string $constantName, string $className = null): int|string|null
     {
         if ($className === null) {
             $className = get_class($object);

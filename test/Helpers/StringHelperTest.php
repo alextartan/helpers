@@ -21,7 +21,7 @@ final class StringHelperTest extends TestCase
         self::assertEquals($out, $strippedString);
     }
 
-    /** @var string[][] */
+    /** @return string[][] */
     public function stripDataProvider(): array
     {
         return [

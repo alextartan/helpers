@@ -8,12 +8,14 @@ use AlexTartan\Helpers\ReflectionHelper;
 use AlexTartanTest\Helpers\TestAssets\TestPrivateChild;
 use AlexTartanTest\Helpers\TestAssets\TestPrivateParent;
 use PHPUnit\Framework\TestCase;
+use ReflectionException;
 
 /**
  * @covers \AlexTartan\Helpers\ReflectionHelper
  */
 final class ReflectionHelperTest extends TestCase
 {
+    /** @throws ReflectionException */
     public function testCallPrivateMethod(): void
     {
         $x = new class () {
@@ -30,11 +32,11 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
+    /** @throws ReflectionException */
     public function testSetPrivatePropertyValue(): void
     {
         $x = new class () {
-            /** @var int */
-            private $privateProperty;
+            private int $privateProperty;
 
             public function getVal(): int
             {
@@ -51,6 +53,7 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
+    /** @throws ReflectionException */
     public function testGetPrivatePropertyValueFromParentClass(): void
     {
         $x = new TestPrivateChild();
@@ -63,6 +66,7 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
+    /** @throws ReflectionException */
     public function testSetPrivatePropertyValueFromParentClass(): void
     {
         $x = new TestPrivateChild();
@@ -75,11 +79,12 @@ final class ReflectionHelperTest extends TestCase
         );
     }
 
+    /** @throws ReflectionException */
     public function testGetPrivatePropertyValue(): void
     {
         $x = new class () {
             /** @var int */
-            private /** @noinspection PhpUnusedPrivateFieldInspection */ $privateProperty = 123;
+            private /** @noinspection PhpUnusedPrivateFieldInspection */ int $privateProperty = 123;
         };
 
         self::assertSame(
@@ -89,6 +94,7 @@ final class ReflectionHelperTest extends TestCase
     }
 
 
+    /** @throws ReflectionException */
     public function testGetPrivateConstant(): void
     {
         $x = new class () {

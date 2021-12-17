@@ -7,9 +7,11 @@ namespace AlexTartan\Helpers;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use Exception;
 
 final class DateHelper
 {
+    /** @throws Exception */
     public static function getDateTimeFromDateTimeImmutable(DateTimeImmutable $dateTimeImmutable): DateTime
     {
         $dateTime = new DateTime('', $dateTimeImmutable->getTimezone());

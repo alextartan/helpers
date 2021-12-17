@@ -91,13 +91,13 @@ class CommandLine
     }
 
     /** @codeCoverageIgnore */
-    public function exec(array &$output = null, int &$returnVar = null): string
+    public function exec(array &$output = null, int &$returnVar = null): string|false
     {
         return exec($this->getFullCommand(), $output, $returnVar);
     }
 
     /** @codeCoverageIgnore */
-    public function shellExec(): ?string
+    public function shellExec(): string|false|null
     {
         return shell_exec($this->getFullCommand());
     }

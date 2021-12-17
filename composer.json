@@ -14,20 +14,20 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": "^7.4||^8.0",
+    "php": "^8.0 || ^8.1",
     "ext-readline": "*",
-    "psr/log": "^1.1.0",
-    "laminas/laminas-validator": "^2.10"
+    "psr/log": "^1.1 || ^2.0 || ^3.0",
+    "laminas/laminas-validator": "^2.15.1"
   },
   "require-dev": {
     "infection/infection": "^0.20.1",
     "php-coveralls/php-coveralls": "~2.1",
-    "phpstan/phpstan": "~0.12.9",
-    "phpstan/phpstan-strict-rules": "~0.12.2",
-    "phpstan/phpstan-phpunit": "~0.12.6",
-    "phpunit/phpunit": "^9.0",
+    "phpstan/phpstan": "~1.2.0",
+    "phpstan/phpstan-strict-rules": "~1.1.0",
+    "phpstan/phpstan-phpunit": "~1.0.0",
+    "phpunit/phpunit": "^9.5.10",
     "roave/security-advisories": "dev-master",
-    "squizlabs/php_codesniffer": "^3.5.3"
+    "squizlabs/php_codesniffer": "^3.6.2"
   },
   "autoload": {
     "psr-4": {
